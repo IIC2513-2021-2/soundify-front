@@ -1,13 +1,13 @@
-import './styles/index.scss';
-import Navbar from './components/Navbar.jsx';
-import Cover from './components/Cover.jsx';
+import React from 'react';
+import Navbar from './components/Navbar';
+import Cover from './components/Cover';
 
 function App() {
   return (
-    <div>
-      <Cover />
+    <React.Fragment>
       <Navbar />
-    </div>
+      <Cover />
+    </React.Fragment>
   );
 }
 

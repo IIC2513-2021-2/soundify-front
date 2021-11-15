@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Soundify",
+  "name": "Soundify: The most comprehensive artists catalogue",
   "icons": [
     {
       "src": "favicon.ico",

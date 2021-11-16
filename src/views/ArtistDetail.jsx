@@ -13,9 +13,7 @@ const ArtistDetail = () => {
       <div>
         <button onClick={() => navigate(-1)} type="button" class="button">Back</button>
       </div>
-      
-    </section>
-      
+    </section>  
   )
 }
 

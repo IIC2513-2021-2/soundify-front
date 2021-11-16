@@ -9,16 +9,15 @@ import NotFound from './views/NotFound';
 function App() {
   return (
     <BrowserRouter>
-    <Navbar />
-    <main>
-      <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path="/artist" element={<ArtistList/>} />
-        <Route path="/artist/:id" element={<ArtistDetail/>} />
-        <Route path='*' element={<NotFound/>} />
-      </Routes>
-    </main>
-   
+      <Navbar />
+      <main>
+        <Routes>
+          <Route path="/" element={<Home/>} />
+          <Route path="/artist" element={<ArtistList/>} />
+          <Route path="/artist/:id" element={<ArtistDetail/>} />
+          <Route path='*' element={<NotFound/>} />
+        </Routes>
+      </main>
     </BrowserRouter>
   );
 }

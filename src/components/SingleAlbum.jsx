@@ -1,7 +1,6 @@
 import React from 'react';
 
-function SingleAlbum(props) {
-  const { album } = props;
+function SingleAlbum({ album }) {
   return (
     <li>
       <h3>{album.name}</h3>

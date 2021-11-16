@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 
 function Navbar() {
@@ -6,7 +7,7 @@ function Navbar() {
     <header>
       <div class="container">
         <div class="logo">
-          <a href="#Home">Soundify</a>
+          <Link to='/'>Soundify</Link>
         </div>
         <nav>
           <ul>
@@ -14,7 +15,7 @@ function Navbar() {
               <a href="#Users">Users</a>
             </li>
             <li>
-              <a href="#Artists">Artists</a>
+              <Link to='/artist'>Artists</Link>
             </li>
             <li>
               <a href="#Albums">Albums</a>

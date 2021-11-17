@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react'
 import { Link } from "react-router-dom";
 
 const artist = [
@@ -12,13 +13,21 @@ const artist = [
 ];
 
 const ArtistList = () => {
+  const [artists, setArtists] = useState([]);
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then((response) => response.json())
+    .then(setArtists)
+  }, []);
+
   return(
     <section className= 'container'>
       <Link to='/'>Home</Link>
       <h2>Artists</h2>
-      {artist.map((artist) => (
-        <div key={artist.id}>
-          <Link to={`/artists/${artist.id}`}>{`${artist.name}`}</Link>
+      {artists.map(({ id, name }) => (
+        <div key={id}>
+          <Link to={`/artists/${id}`}>{`${name}`}</Link>
         </div>
       ))}
     </section>

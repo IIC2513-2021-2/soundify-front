@@ -1,17 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from "react-router-dom";
 
-const artist = [
-  { 
-    id: 1,
-    name: 'Taylor Swift' 
-  },
-  { 
-    id: 2,
-    name: 'Kanye West' 
-  },
-];
-
 const ArtistList = () => {
   const [artists, setArtists] = useState([]);
   const [loading, setLoading] = useState(false);

@@ -14,12 +14,19 @@ const artist = [
 
 const ArtistList = () => {
   const [artists, setArtists] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     fetch('https://jsonplaceholder.typicode.com/users')
     .then((response) => response.json())
     .then(setArtists)
+    .finally(() => setLoading(false));
   }, []);
+
+  if (loading) {
+    return <h2>Loading...</h2>
+  }
 
   return(
     <section className= 'container'>

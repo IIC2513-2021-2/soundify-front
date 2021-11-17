@@ -8,12 +8,12 @@ const ArtistList = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch('https://jsonplaceholder.typicode.com/user')
+    fetch('https://jsonplaceholder.typicode.com/users')
     .then((response) => {
       if (response.status !== 200) {
         setError(true)
       }
-      response.json()
+      return response.json()
     })
     .then(setArtists)
     .catch(() => setError(true))

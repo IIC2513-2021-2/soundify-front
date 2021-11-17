@@ -28,23 +28,21 @@ const ArtistList = () => {
     );
   }
 
-  if (error) {
-    return (
-      <section className="container">
-        <h2>Error</h2>
-      </section>
-    )
-  }
-
   return(
     <section className= 'container'>
       <Link to='/'>Home</Link>
-      <h2>Artists</h2>
-      {artists.map(({ id, name }) => (
-        <div key={id}>
-          <Link to={`/artists/${id}`}>{`${name}`}</Link>
-        </div>
-      ))}
+      {error ? (
+        <h2>Error</h2>
+      ) : (
+        <>
+          <h2>Artists</h2>
+          {artists.map(({ id, name }) => (
+            <div key={id}>
+              <Link to={`/artists/${id}`}>{`${name}`}</Link>
+            </div>
+          ))}
+        </>
+      )}
     </section>
   )
 }

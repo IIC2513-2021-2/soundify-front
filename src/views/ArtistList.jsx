@@ -13,7 +13,7 @@ const artist = [
 
 const ArtistList = () => {
   return(
-    <section class= 'container'>
+    <section className= 'container'>
       <Link to='/'>Home</Link>
       <h2>Artists</h2>
       {artist.map((artist) => (

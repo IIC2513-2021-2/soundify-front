@@ -12,9 +12,9 @@ function App() {
       <Navbar />
       <main>
         <Routes>
-          <Route path="/" element={<Home/>} />
-          <Route path="/artist" element={<ArtistList/>} />
-          <Route path="/artist/:id" element={<ArtistDetail/>} />
+          <Route index element={<Home/>} />
+          <Route path="artists" element={<ArtistList/>} />
+          <Route path="artists/:id" element={<ArtistDetail/>} />
           <Route path='*' element={<NotFound/>} />
         </Routes>
       </main>

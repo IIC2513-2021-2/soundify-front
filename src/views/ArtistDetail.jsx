@@ -6,12 +6,12 @@ const ArtistDetail = () => {
   const navigate = useNavigate();
 
   return(
-    <section class= 'container'>
+    <section className= 'container'>
       <Link to='/'>Home</Link>
       <h2>{`Artist ${id}`}</h2>
       <Albums />
       <div>
-        <button onClick={() => navigate(-1)} type="button" class="button">Back</button>
+        <button onClick={() => navigate(-1)} type="button" className="button">Back</button>
       </div>
     </section>  
   )

@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 function Navbar() {
   return (
     <header>
-      <div class="container">
-        <div class="logo">
+      <div className="container">
+        <div className="logo">
           <Link to='/'>Soundify</Link>
         </div>
         <nav>
@@ -15,7 +15,7 @@ function Navbar() {
               <a href="#Users">Users</a>
             </li>
             <li>
-              <Link to='/artist'>Artists</Link>
+              <Link to='/artists'>Artists</Link>
             </li>
             <li>
               <a href="#Albums">Albums</a>

@@ -16,7 +16,11 @@ const ArtistList = () => {
     <section class= 'container'>
       <Link to='/'>Home</Link>
       <h2>Artists</h2>
-      {artist.map((artist) => <div key={artist.id}><Link to={`/artist/${artist.id}`}>{`${artist.name}`}</Link></div>)}
+      {artist.map((artist) => (
+        <div key={artist.id}>
+          <Link to={`/artists/${artist.id}`}>{`${artist.name}`}</Link>
+        </div>
+      ))}
     </section>
   )
 }

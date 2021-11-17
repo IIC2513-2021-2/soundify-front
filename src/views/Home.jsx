@@ -1,7 +1,7 @@
 import Cover from '../components/Cover'
 
 const Home = () => {
-  return<Cover />;
+  return <Cover />;
 }
 
 export default Home;

@@ -4,7 +4,7 @@ import Pathways from './Pathways';
 
 function Cover() {
   return (
-    <section class="cover">
+    <section className="cover">
       <h1>The most comprehensive artists catalogue</h1>
       <Pathways />
     </section>

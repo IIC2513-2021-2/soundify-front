@@ -1,10 +1,10 @@
 import React from 'react';
-
+import { Link } from "react-router-dom";
 
 function Pathways() {
   return (
-    <div class="pathways">
-      <a href="#Artists">Artists</a>
+    <div className="pathways">
+      <Link to='/artists'>Artists</Link>
       <a href="#Albums">Albums</a>
     </div>
   );

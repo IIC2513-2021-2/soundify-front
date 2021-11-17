@@ -15,17 +15,36 @@ const artist = [
 const ArtistList = () => {
   const [artists, setArtists] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    fetch('https://jsonplaceholder.typicode.com/users')
-    .then((response) => response.json())
+    fetch('https://jsonplaceholder.typicode.com/user')
+    .then((response) => {
+      if (response.status !== 200) {
+        setError(true)
+      }
+      response.json()
+    })
     .then(setArtists)
+    .catch(() => setError(true))
     .finally(() => setLoading(false));
   }, []);
 
   if (loading) {
-    return <h2>Loading...</h2>
+    return (
+      <section className= 'container'>
+        <h2>Loading...</h2>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="container">
+        <h2>Error</h2>
+      </section>
+    )
   }
 
   return(

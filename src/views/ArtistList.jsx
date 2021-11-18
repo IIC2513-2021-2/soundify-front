@@ -1,28 +1,30 @@
-import { Link } from "react-router-dom";
+import React from 'react';
 
-const artist = [
-  { 
+import { Link } from 'react-router-dom';
+
+const artists = [
+  {
     id: 1,
-    name: 'Taylor Swift' 
+    name: 'Taylor Swift',
   },
-  { 
+  {
     id: 2,
-    name: 'Kanye West' 
+    name: 'Kanye West',
   },
 ];
 
-const ArtistList = () => {
-  return(
-    <section className= 'container'>
-      <Link to='/'>Home</Link>
+const ArtistList = function () {
+  return (
+    <section className="container">
+      <Link to="/">Home</Link>
       <h2>Artists</h2>
-      {artist.map((artist) => (
+      {artists.map((artist) => (
         <div key={artist.id}>
           <Link to={`/artists/${artist.id}`}>{`${artist.name}`}</Link>
         </div>
       ))}
     </section>
-  )
-}
+  );
+};
 
 export default ArtistList;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams, useNavigate } from "react-router-dom";
-import Albums from "../components/Albums";
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import Albums from '../components/Albums';
 
 const ArtistDetail = function () {
   const { id } = useParams();
@@ -13,28 +13,28 @@ const ArtistDetail = function () {
   useEffect(() => {
     setLoading(true);
     fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
-    .then((response) => {
-      if (!response.ok) {
-        setError(true)
-      }
-      return response.json()
-    })
-    .then(setArtist)
-    .catch(() => setError(true))
-    .finally(() => setLoading(false));
+      .then((response) => {
+        if (!response.ok) {
+          setError(true);
+        }
+        return response.json();
+      })
+      .then(setArtist)
+      .catch(() => setError(true))
+      .finally(() => setLoading(false));
   }, []);
 
   if (loading) {
     return (
-      <section className= 'container'>
+      <section className="container">
         <h2>Loading...</h2>
       </section>
     );
   }
 
-  return(
-    <section className= 'container'>
-      <Link to='/'>Home</Link>
+  return (
+    <section className="container">
+      <Link to="/">Home</Link>
       {error ? (
         <h2>Error</h2>
       ) : (
@@ -46,8 +46,8 @@ const ArtistDetail = function () {
           </div>
         </>
       )}
-    </section>  
-  )
-}
+    </section>
+  );
+};
 
 export default ArtistDetail;

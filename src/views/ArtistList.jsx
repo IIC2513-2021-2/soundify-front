@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const ArtistList = () => {
   const [artists, setArtists] = useState([]);
@@ -9,28 +9,28 @@ const ArtistList = () => {
   useEffect(() => {
     setLoading(true);
     fetch('https://jsonplaceholder.typicode.com/users')
-    .then((response) => {
-      if (!response.ok) {
-        setError(true)
-      }
-      return response.json()
-    })
-    .then(setArtists)
-    .catch(() => setError(true))
-    .finally(() => setLoading(false));
+      .then((response) => {
+        if (!response.ok) {
+          setError(true);
+        }
+        return response.json();
+      })
+      .then(setArtists)
+      .catch(() => setError(true))
+      .finally(() => setLoading(false));
   }, []);
 
   if (loading) {
     return (
-      <section className= 'container'>
+      <section className="container">
         <h2>Loading...</h2>
       </section>
     );
   }
 
-  return(
-    <section className= 'container'>
-      <Link to='/'>Home</Link>
+  return (
+    <section className="container">
+      <Link to="/">Home</Link>
       {error ? (
         <h2>Error</h2>
       ) : (

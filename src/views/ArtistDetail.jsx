@@ -14,7 +14,7 @@ const ArtistDetail = () => {
     setLoading(true);
     fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
     .then((response) => {
-      if (response.status !== 200) {
+      if (!response.ok) {
         setError(true)
       }
       return response.json()

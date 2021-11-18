@@ -38,7 +38,7 @@ const ArtistList = () => {
           <h2>Artists</h2>
           {artists.map(({ id, name }) => (
             <div key={id}>
-              <Link to={`/artists/${id}`}>{`${name}`}</Link>
+              <Link to={`/artists/${id}`}>{name}</Link>
             </div>
           ))}
         </>

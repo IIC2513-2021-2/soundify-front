@@ -16,6 +16,7 @@ const ArtistDetail = function () {
       .then((response) => {
         if (!response.ok) {
           setError(true);
+          return null;
         }
         return response.json();
       })

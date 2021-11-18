@@ -12,6 +12,7 @@ const ArtistList = () => {
       .then((response) => {
         if (!response.ok) {
           setError(true);
+          return [];
         }
         return response.json();
       })

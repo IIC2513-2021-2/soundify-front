@@ -1,7 +1,8 @@
-import Cover from '../components/Cover'
+import React from 'react';
+import Cover from '../components/Cover';
 
-const Home = () => {
+const Home = function () {
   return <Cover />;
-}
+};
 
 export default Home;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from "react-router-dom";
 import Albums from "../components/Albums";
 
-const ArtistDetail = () => {
+const ArtistDetail = function () {
   const { id } = useParams();
   const navigate = useNavigate();
 

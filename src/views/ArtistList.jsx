@@ -44,7 +44,7 @@ const ArtistList = () => {
         </>
       )}
     </section>
-  )
-}
+  );
+};
 
 export default ArtistList;

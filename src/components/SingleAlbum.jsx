@@ -1,6 +1,6 @@
 import React from 'react';
 
-function SingleAlbum({ album }) {
+const SingleAlbum = function ({ album }) {
   return (
     <li>
       <h3>{album.name}</h3>
@@ -8,6 +8,6 @@ function SingleAlbum({ album }) {
       <img alt={`${album.name}, album from ${album.artist}`} src={album.cover} />
     </li>
   );
-}
+};
 
 export default SingleAlbum;

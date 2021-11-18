@@ -2,6 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
+    jest: true,
   },
   extends: [
     'plugin:react/recommended',
@@ -18,5 +19,8 @@ module.exports = {
     'react',
   ],
   rules: {
+    'func-names': 'off',
+    'react/prop-types': 'off',
+    'react/function-component-definition': 'off',
   },
 };

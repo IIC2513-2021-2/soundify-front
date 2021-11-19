@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Deserializer } from 'jsonapi-serializer';
 import Albums from '../components/Albums';
+import config from '../config';
 
 const ArtistDetail = function () {
   const { id } = useParams();
@@ -12,7 +14,7 @@ const ArtistDetail = function () {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
+    fetch(`${config.API_URL}/api/artists/${id}`)
       .then((response) => {
         if (!response.ok) {
           setError(true);
@@ -20,7 +22,7 @@ const ArtistDetail = function () {
         }
         return response.json();
       })
-      .then(setArtist)
+      .then((data) => new Deserializer({ keyForAttribute: 'camelCase' }).deserialize(data, (_error, artistData) => setArtist(artistData)))
       .catch(() => setError(true))
       .finally(() => setLoading(false));
   }, []);
@@ -41,6 +43,9 @@ const ArtistDetail = function () {
       ) : (
         <>
           <h2>{artist?.name}</h2>
+          <h3>{`Members: ${artist?.members}`}</h3>
+          <h3>{`Origin: ${artist?.origin}`}</h3>
+          <h3>{`Founded in: ${artist?.foundedIn}`}</h3>
           <Albums />
           <div>
             <button onClick={() => navigate(-1)} type="button" className="button">Back</button>

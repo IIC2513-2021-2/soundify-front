@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Deserializer } from 'jsonapi-serializer';
+import config from '../config';
 
 const ArtistList = () => {
   const [artists, setArtists] = useState([]);
@@ -8,7 +10,7 @@ const ArtistList = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch('https://jsonplaceholder.typicode.com/users')
+    fetch(`${config.API_URL}/api/artists`)
       .then((response) => {
         if (!response.ok) {
           setError(true);
@@ -16,7 +18,7 @@ const ArtistList = () => {
         }
         return response.json();
       })
-      .then(setArtists)
+      .then((data) => new Deserializer({ keyForAttribute: 'camelCase' }).deserialize(data, (_error, artistList) => setArtists(artistList)))
       .catch(() => setError(true))
       .finally(() => setLoading(false));
   }, []);

@@ -8,8 +8,8 @@ import App from '../App';
 
 function TestRouter({ path }) {
   return (
-    <MemoryRouter initialEntries={path}>
-        <App />
+    <MemoryRouter initialEntries={[path]}>
+      <App />
     </MemoryRouter>
   );
 }
@@ -46,6 +46,8 @@ const user = {
     token_type: 'Bearer',
 };
 
+const userNull = null;
+
 const localStorageMapping = {
   user,
 };
@@ -60,10 +62,24 @@ afterAll(() => server.close());
 
 describe('ArtistList', () => {
   describe('when user is not logged in', () => {
+    beforeEach(() => {
+      global.Storage.prototype.getItem = jest.fn(
+        (key) => JSON.stringify(localStorageMapping[key]),
+      );
+    });
+    afterEach(() => {
+      global.Storage.prototype.getItem.mockReset();
+    });
+
     it('renders the artist list data', async () => {
+
+      // <TestRouter path="/artists" />;
+      /*render(<App path="artits" />, {
+        container: document.body.appendChild(ArtistList),
+      });*/
       render(<ArtistList />);
 
-      //<TestRouter path="/artists" />;
+      //<TestRouter path="artists" />; 
 
       const textElement = screen.getByText(/soundify/i);
       const linkElement1 = screen.getByText('Tame Impala');
@@ -73,6 +89,7 @@ describe('ArtistList', () => {
       expect(linkElement2).toBeInTheDocument();
     });
   });
+
   /*
   describe('when user is logged in', () => {
     it('renders the artist list data', () => {

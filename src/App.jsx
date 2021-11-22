@@ -5,6 +5,7 @@ import Home from './views/Home';
 import ArtistList from './views/ArtistList';
 import ArtistDetail from './views/ArtistDetail';
 import NotFound from './views/NotFound';
+import Register from './views/Register';
 
 const App = function () {
   return (
@@ -15,6 +16,7 @@ const App = function () {
           <Route index element={<Home />} />
           <Route path="artists" element={<ArtistList />} />
           <Route path="artists/:id" element={<ArtistDetail />} />
+          <Route path="register" element={<Register />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

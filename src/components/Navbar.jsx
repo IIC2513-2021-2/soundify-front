@@ -25,6 +25,9 @@ const Navbar = function () {
             <li>
               <a href="#LogIn">Log In</a>
             </li>
+            <li>
+              <Link to="/register">Sign Up</Link>
+            </li>
           </ul>
         </nav>
       </div>

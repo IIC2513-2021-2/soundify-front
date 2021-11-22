@@ -83,10 +83,9 @@ describe('ArtistList', () => {
 
     it('renders the artist list data', async () => {
       render(<TestRouter path="/artists" />);
-
+      const loadingText = screen.getByText(/Loading/i);
       await waitFor(() => {
-        const text = screen.getByText(/Artists/i);
-        expect(text).toBeInTheDocument();
+        expect(loadingText).not.toBeInTheDocument();
       });
 
 

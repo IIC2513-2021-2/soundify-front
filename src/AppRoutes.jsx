@@ -6,10 +6,12 @@ import ArtistDetail from './views/ArtistDetail';
 import NotFound from './views/NotFound';
 import Login from './views/Login';
 import AuthContextProvider from './contexts/AuthContext';
+import Navbar from './components/Navbar';
 
 export default function AppRoutes() {
   return (
     <AuthContextProvider>
+      <Navbar />
       <Routes>
         <Route index element={<Home />} />
         <Route path="/login" element={<Login />} />

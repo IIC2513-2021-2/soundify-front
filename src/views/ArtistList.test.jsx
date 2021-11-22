@@ -2,14 +2,14 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import ArtistList from './ArtistList';
-import App from '../App';
+import AppRoutes from '../AppRoutes';
 
 function TestRouter({ path }) {
   return (
     <MemoryRouter initialEntries={[path]}>
-      <App />
+      <AppRoutes />
     </MemoryRouter>
   );
 }
@@ -39,11 +39,11 @@ const artist2 = {
 };
 
 const user = {
-    firstName: 'Test',
-    lastName: 'Dummy',
-    email: 'TestDummy@gmail.com',
-    access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2MzcxNzczNjcsImV4cCI6MTYzNzI2Mzc2N30.LveWBdgcSsgSnEFDbmxpt-aFnq9Q3_cJmQSJJ9tARHk',
-    token_type: 'Bearer',
+  firstName: 'Test',
+  lastName: 'Dummy',
+  email: 'TestDummy@gmail.com',
+  access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2MzcxNzczNjcsImV4cCI6MTYzNzI2Mzc2N30.LveWBdgcSsgSnEFDbmxpt-aFnq9Q3_cJmQSJJ9tARHk',
+  token_type: 'Bearer',
 };
 
 const userNull = null;
@@ -53,7 +53,7 @@ const localStorageMapping = {
 };
 
 const server = setupServer(
-  rest.get('/greeting', (req, res, ctx) => res(ctx.json({ artists: {data: [artist1, artist2] } }))),
+  rest.get('/greeting', (req, res, ctx) => res(ctx.json({ artists: { data: [artist1, artist2] } }))),
 );
 
 beforeAll(() => server.listen());
@@ -72,14 +72,13 @@ describe('ArtistList', () => {
     });
 
     it('renders the artist list data', async () => {
+      render(<TestRouter path="/artists" />);
 
-      // <TestRouter path="/artists" />;
-      /*render(<App path="artits" />, {
-        container: document.body.appendChild(ArtistList),
-      });*/
-      render(<ArtistList />);
+      await waitFor(() => {
+        const text = screen.getByText(/Artists/i);
+        expect(text).toBeInTheDocument();
+      });
 
-      //<TestRouter path="artists" />; 
 
       const textElement = screen.getByText(/soundify/i);
       const linkElement1 = screen.getByText('Tame Impala');
@@ -99,10 +98,10 @@ describe('ArtistList', () => {
           (key) => JSON.stringify(localStorageMapping[key]),
         );
       });
-    
+
       render(<ArtistList />);
       const logginMessage = screen.getByText(/Log in to create a new artist/i);
-    
+
       expect(logginMessage).not.toBeInTheDocument();
     });
   });

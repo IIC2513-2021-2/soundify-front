@@ -46,15 +46,25 @@ const user = {
   token_type: 'Bearer',
 };
 
+const testResponse = {
+  "data": [artist1, artist2]
+};
+
 const userNull = null;
 
 const localStorageMapping = {
   user,
 };
 
-const server = setupServer(
+/*const server = setupServer(
   rest.get('/greeting', (req, res, ctx) => res(ctx.json({ artists: { data: [artist1, artist2] } }))),
-);
+);*/
+
+const server = setupServer(
+  rest.get('http://localhost:3000/api/artists', (req, res, ctx) => {
+    return res(ctx.json(testResponse))
+  }),
+)
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
@@ -80,10 +90,9 @@ describe('ArtistList', () => {
       });
 
 
-      const textElement = screen.getByText(/soundify/i);
       const linkElement1 = screen.getByText('Tame Impala');
       const linkElement2 = screen.getByText('Khruangbin');
-      expect(textElement).toBeInTheDocument();
+
       expect(linkElement1).toBeInTheDocument();
       expect(linkElement2).toBeInTheDocument();
     });

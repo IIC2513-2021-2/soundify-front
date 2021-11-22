@@ -3,7 +3,6 @@ import { MemoryRouter } from 'react-router-dom';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { render, screen, waitFor } from '@testing-library/react';
-import ArtistList from './ArtistList';
 import AppRoutes from '../AppRoutes';
 
 function TestRouter({ path }) {
@@ -47,24 +46,16 @@ const user = {
 };
 
 const testResponse = {
-  "data": [artist1, artist2]
+  data: [artist1, artist2],
 };
-
-const userNull = null;
 
 const localStorageMapping = {
   user,
 };
 
-/*const server = setupServer(
-  rest.get('/greeting', (req, res, ctx) => res(ctx.json({ artists: { data: [artist1, artist2] } }))),
-);*/
-
 const server = setupServer(
-  rest.get('http://localhost:3000/api/artists', (req, res, ctx) => {
-    return res(ctx.json(testResponse))
-  }),
-)
+  rest.get('http://localhost:3000/api/artists', (req, res, ctx) => res(ctx.json(testResponse))),
+);
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
@@ -72,6 +63,46 @@ afterAll(() => server.close());
 
 describe('ArtistList', () => {
   describe('when user is not logged in', () => {
+    it('renders the artist list data', async () => {
+      render(<TestRouter path="/artists" />);
+      const loadingText = screen.getByText(/Loading/i);
+      await waitFor(() => {
+        expect(loadingText).not.toBeInTheDocument();
+      });
+
+      const logginMessage = screen.getByText(/Log in to create a new artist/i);
+      const linkElement1 = screen.getByText('Tame Impala');
+      const linkElement2 = screen.getByText('Khruangbin');
+
+      expect(logginMessage).toBeInTheDocument();
+      expect(linkElement1).toBeInTheDocument();
+      expect(linkElement2).toBeInTheDocument();
+    });
+  });
+
+  describe('when user is logged in', () => {
+    beforeEach(() => {
+      global.Storage.prototype.getItem = jest.fn(
+        (key) => JSON.stringify(localStorageMapping[key]),
+      );
+    });
+    afterEach(() => {
+      global.Storage.prototype.getItem.mockReset();
+    });
+    it('renders the artist list data', async () => {
+      render(<TestRouter path="/artists" />);
+      const loadingText = screen.getByText(/Loading/i);
+      await waitFor(() => {
+        expect(loadingText).not.toBeInTheDocument();
+      });
+
+      const logginMessage = screen.queryByText(/Log in to create a new artist/i);
+
+      expect(logginMessage).not.toBeInTheDocument();
+    });
+  });
+
+  describe('when error is present', () => {
     beforeEach(() => {
       global.Storage.prototype.getItem = jest.fn(
         (key) => JSON.stringify(localStorageMapping[key]),
@@ -81,66 +112,21 @@ describe('ArtistList', () => {
       global.Storage.prototype.getItem.mockReset();
     });
 
-    it('renders the artist list data', async () => {
+    it('does not load artists', async () => {
+      server.use(
+        rest.get('http://localhost:3000/api/artists', (req, res, ctx) => res(ctx.status(500))),
+      );
       render(<TestRouter path="/artists" />);
       const loadingText = screen.getByText(/Loading/i);
       await waitFor(() => {
         expect(loadingText).not.toBeInTheDocument();
       });
 
+      const errorMessage = screen.getByText(/Error/i);
+      const linkelement = screen.queryByText(/Tame Impala/i);
 
-      const linkElement1 = screen.getByText('Tame Impala');
-      const linkElement2 = screen.getByText('Khruangbin');
-
-      expect(linkElement1).toBeInTheDocument();
-      expect(linkElement2).toBeInTheDocument();
+      expect(errorMessage).toBeInTheDocument();
+      expect(linkelement).not.toBeInTheDocument();
     });
   });
-
-  /*
-  describe('when user is logged in', () => {
-    it('renders the artist list data', () => {
-      render(<ArtistList />)
-      beforeEach(() => {
-        global.Storage.prototype.getItem = jest.fn(
-          (key) => JSON.stringify(localStorageMapping[key]),
-        );
-      });
-
-      render(<ArtistList />);
-      const logginMessage = screen.getByText(/Log in to create a new artist/i);
-
-      expect(logginMessage).not.toBeInTheDocument();
-    });
-  });
-  */
 });
-/*
-test('loads ArtisList when error', async () => {
-  server.use(
-    rest.get('/ArtistList', (req, res, ctx) => res(ctx.status(500))),
-  );
-
-  render(<ArtistList />);
-  const errorMessage = screen.getByText(/Error/i);
-
-  expect(errorMessage).toBeInTheDocument();
-});
-
-test('loads ArtisList when logged', async () => {
-  beforeEach(() => {
-    global.Storage.prototype.getItem = jest.fn(
-      (key) => JSON.stringify(localStorageMapping[key]),
-    );
-  });
-
-  afterEach(() => {
-    global.Storage.prototype.getItem.mockReset();
-  });
-
-  render(<ArtistList />);
-  const errorMessage = screen.getByText(/Error/i);
-
-  expect(errorMessage).toBeInTheDocument();
-});
-*/

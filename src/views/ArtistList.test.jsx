@@ -1,15 +1,15 @@
 import React from 'react';
-import Routes from '../App';
 import { MemoryRouter } from 'react-router-dom';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import ArtistList from './ArtistList';
+import App from '../App';
 
 function TestRouter({ path }) {
   return (
-    <MemoryRouter initialEntries={[path]}>
-        <Routes />
+    <MemoryRouter initialEntries={path}>
+        <App />
     </MemoryRouter>
   );
 }
@@ -61,18 +61,18 @@ afterAll(() => server.close());
 describe('ArtistList', () => {
   describe('when user is not logged in', () => {
     it('renders the artist list data', async () => {
-      <TestRouter path="/artists" />;
+      render(<ArtistList />);
 
-      const textElement = screen.getByText(/Log in to create a new artist/i);
+      //<TestRouter path="/artists" />;
+
+      const textElement = screen.getByText(/soundify/i);
       const linkElement1 = screen.getByText('Tame Impala');
       const linkElement2 = screen.getByText('Khruangbin');
-    
       expect(textElement).toBeInTheDocument();
       expect(linkElement1).toBeInTheDocument();
       expect(linkElement2).toBeInTheDocument();
     });
   });
-
   /*
   describe('when user is logged in', () => {
     it('renders the artist list data', () => {
@@ -88,9 +88,9 @@ describe('ArtistList', () => {
     
       expect(logginMessage).not.toBeInTheDocument();
     });
-  });*/
+  });
+  */
 });
-
 /*
 test('loads ArtisList when error', async () => {
   server.use(

@@ -10,8 +10,9 @@ import AuthContextProvider from './contexts/AuthContext';
 
 const App = function () {
   return (
-    <AuthContextProvider>
-      <BrowserRouter>
+
+    <BrowserRouter>
+      <AuthContextProvider>
         <Navbar />
         <main>
           <Routes>
@@ -22,8 +23,9 @@ const App = function () {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
-      </BrowserRouter>
-    </AuthContextProvider>
+      </AuthContextProvider>
+    </BrowserRouter>
+
   );
 };
 

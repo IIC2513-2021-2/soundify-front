@@ -71,8 +71,8 @@ describe('ArtistList', () => {
       });
 
       const logginMessage = screen.getByText(/Log in to create a new artist/i);
-      const linkElement1 = screen.getByText('Tame Impala');
-      const linkElement2 = screen.getByText('Khruangbin');
+      const linkElement1 = screen.getByText(/Tame Impala/i);
+      const linkElement2 = screen.getByText(/Khruangbin/i);
 
       expect(logginMessage).toBeInTheDocument();
       expect(linkElement1).toBeInTheDocument();
@@ -97,7 +97,11 @@ describe('ArtistList', () => {
       });
 
       const logginMessage = screen.queryByText(/Log in to create a new artist/i);
+      const linkElement1 = screen.getByText(/Tame Impala/i);
+      const linkElement2 = screen.getByText(/Khruangbin/i);
 
+      expect(linkElement1).toBeInTheDocument();
+      expect(linkElement2).toBeInTheDocument();
       expect(logginMessage).not.toBeInTheDocument();
     });
   });

@@ -1,4 +1,6 @@
-import React, { createContext, useEffect, useCallback } from 'react';
+import React, {
+  createContext, useEffect, useCallback, useMemo,
+} from 'react';
 import jwtDecode from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
 import useLocalStorage from '../hooks/useLocalStorage';
@@ -37,9 +39,13 @@ const AuthContextProvider = ({ children }) => {
     }
   }, [currentUser, sessionExpDate, handleAutomaticLogout]);
 
+  const userStatus = useMemo(
+    () => ({ currentUser, handleUserLogin, handleUserLogout }),
+    [currentUser, handleUserLogin, handleUserLogout],
+  );
+
   return (
-    // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <AuthContext.Provider value={{ currentUser, handleUserLogin, handleUserLogout }}>
+    <AuthContext.Provider value={userStatus}>
       {children}
     </AuthContext.Provider>
   );

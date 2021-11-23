@@ -17,7 +17,7 @@ const App = function () {
         <main>
           <Routes>
             <Route index element={<Home />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="login" element={<Login />} />
             <Route path="artists" element={<ArtistList />} />
             <Route path="artists/:id" element={<ArtistDetail />} />
             <Route path="*" element={<NotFound />} />

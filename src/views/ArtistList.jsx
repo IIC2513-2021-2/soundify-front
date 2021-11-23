@@ -51,7 +51,9 @@ const ArtistList = () => {
           ))}
           {currentUser ? (
             <CreateArtist addArtist={addArtist} />
-          ) : <p>Log in to create a new artist</p>}
+          ) : (
+            <p>Log in to create a new artist</p>
+          )}
         </>
       )}
     </section>

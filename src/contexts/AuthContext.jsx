@@ -24,8 +24,7 @@ const AuthContextProvider = ({ children }) => {
   };
 
   const handleAutomaticLogout = useCallback(() => {
-    clearStoredUser();
-    clearSessionExpDate();
+    handleUserLogout();
     navigate('/login');
   }, [navigate]);
 

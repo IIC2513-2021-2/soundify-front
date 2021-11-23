@@ -59,7 +59,7 @@ export default function CreateArtist({ addArtist }) {
   const isDisabled = useMemo(
     () => !(values.name && values.origin && values.genres && values.foundedIn
       && values.members && !loading),
-    [values],
+    [values, loading],
   );
 
   return (

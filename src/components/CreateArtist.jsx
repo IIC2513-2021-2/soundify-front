@@ -118,6 +118,7 @@ export default function CreateArtist({ addArtist }) {
         </div>
         <div>
           <button type="submit" disabled={isDisabled}>Create</button>
+          {loading && <p>Loading...</p>}
         </div>
         {error && <p>Something went wrong, please try again later :(</p>}
       </form>

@@ -7,7 +7,6 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     'airbnb',
-    'plugin:import/typescript',
   ],
   parserOptions: {
     ecmaFeatures: {
@@ -29,9 +28,6 @@ module.exports = {
       {
         js: 'never',
         jsx: 'never',
-        ts: 'never',
-        tsx: 'never',
-        mjs: 'never',
       },
     ],
   },

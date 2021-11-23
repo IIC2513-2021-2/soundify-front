@@ -18,6 +18,7 @@ export default function CreateArtist({ addArtist }) {
   const { currentUser } = useAuth();
 
   const handleSubmit = async function handleSubmit(event) {
+    setLoading(true);
     event.preventDefault();
     const requestOptions = {
       method: 'POST',

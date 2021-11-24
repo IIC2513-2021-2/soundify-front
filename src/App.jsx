@@ -5,20 +5,27 @@ import Home from './views/Home';
 import ArtistList from './views/ArtistList';
 import ArtistDetail from './views/ArtistDetail';
 import NotFound from './views/NotFound';
+import Login from './views/Login';
+import AuthContextProvider from './contexts/AuthContext';
 
 const App = function () {
   return (
+
     <BrowserRouter>
-      <Navbar />
-      <main>
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path="artists" element={<ArtistList />} />
-          <Route path="artists/:id" element={<ArtistDetail />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </main>
+      <AuthContextProvider>
+        <Navbar />
+        <main>
+          <Routes>
+            <Route index element={<Home />} />
+            <Route path="login" element={<Login />} />
+            <Route path="artists" element={<ArtistList />} />
+            <Route path="artists/:id" element={<ArtistDetail />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+      </AuthContextProvider>
     </BrowserRouter>
+
   );
 };
 

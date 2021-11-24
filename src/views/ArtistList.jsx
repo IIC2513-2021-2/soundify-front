@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Deserializer } from 'jsonapi-serializer';
 import config from '../config';
+import CreateArtist from '../components/CreateArtist';
+import useAuth from '../hooks/useAuth';
 
 const ArtistList = () => {
+  const { currentUser } = useAuth();
   const [artists, setArtists] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -22,6 +25,8 @@ const ArtistList = () => {
       .catch(() => setError(true))
       .finally(() => setLoading(false));
   }, []);
+
+  const addArtist = (artist) => setArtists((prevState) => [...prevState, artist]);
 
   if (loading) {
     return (
@@ -44,6 +49,11 @@ const ArtistList = () => {
               <Link to={`/artists/${id}`}>{name}</Link>
             </div>
           ))}
+          {currentUser ? (
+            <CreateArtist addArtist={addArtist} />
+          ) : (
+            <p>Log in to create a new artist</p>
+          )}
         </>
       )}
     </section>

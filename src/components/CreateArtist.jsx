@@ -18,6 +18,7 @@ export default function CreateArtist({ addArtist }) {
   const { currentUser } = useAuth();
 
   const handleSubmit = async function handleSubmit(event) {
+    setLoading(true);
     event.preventDefault();
     const requestOptions = {
       method: 'POST',
@@ -31,7 +32,7 @@ export default function CreateArtist({ addArtist }) {
       .then((response) => {
         if (!response.ok) {
           setError(true);
-          return {};
+          return response.text().then((message) => Promise.reject(new Error(message)));
         }
         return response.json();
       })
@@ -56,13 +57,10 @@ export default function CreateArtist({ addArtist }) {
   };
 
   const isDisabled = useMemo(
-    () => !(values.name && values.origin && values.genres && values.foundedIn && values.members),
-    [values],
+    () => !(values.name && values.origin && values.genres && values.foundedIn
+      && values.members && !loading),
+    [values, loading],
   );
-
-  if (loading) {
-    return <h2>Loading...</h2>;
-  }
 
   return (
     <div>
@@ -120,6 +118,7 @@ export default function CreateArtist({ addArtist }) {
         </div>
         <div>
           <button type="submit" disabled={isDisabled}>Create</button>
+          {loading && <p>Loading...</p>}
         </div>
         {error && <p>Something went wrong, please try again later :(</p>}
       </form>

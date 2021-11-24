@@ -27,7 +27,12 @@ const Navbar = function () {
             <li>
               {currentUser ? (
                 <button type="button" onClick={handleUserLogout}>Logout</button>
-              ) : (<Link to="/Login">Log In</Link>)}
+              ) : (
+                <Link to="login">Log In</Link>
+              )}
+            </li>
+            <li>
+              <Link to="/register">Sign Up</Link>
             </li>
           </ul>
         </nav>

@@ -106,16 +106,7 @@ describe('ArtistList', () => {
     });
   });
 
-  describe('when error is present', () => {
-    beforeEach(() => {
-      global.Storage.prototype.getItem = jest.fn(
-        (key) => JSON.stringify(localStorageMapping[key]),
-      );
-    });
-    afterEach(() => {
-      global.Storage.prototype.getItem.mockReset();
-    });
-
+  describe('when error in server is present', () => {
     it('does not load artists', async () => {
       server.use(
         rest.get('http://localhost:3000/api/artists', (req, res, ctx) => res(ctx.status(500))),

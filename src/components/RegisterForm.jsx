@@ -69,41 +69,41 @@ const RegisterForm = function () {
             <div>
               <label htmlFor="firstName">First Name</label>
               <Field name="firstName" type="text" placeholder="Name" />
-              {errors.firstName && touched.firstName ? (
+              {errors.firstName && touched.firstName && (
                 <div className="error">{errors.firstName}</div>
-              ) : null}
+              )}
             </div>
 
             <div>
               <label htmlFor="lastName">Last Name</label>
               <Field name="lastName" type="text" placeholder="Last Name" />
-              {errors.lastName && touched.lastName ? (
+              {errors.lastName && touched.lastName && (
                 <div className="error">{errors.lastName}</div>
-              ) : null}
+              )}
             </div>
 
             <div>
               <label htmlFor="email">Email</label>
               <Field name="email" type="email" placeholder="Email" />
-              {errors.email && touched.email ? (
+              {errors.email && touched.email && (
                 <div className="error">{errors.email}</div>
-              ) : null}
+              )}
             </div>
 
             <div>
               <label htmlFor="password">Password</label>
               <Field name="password" type="password" placeholder="Password" />
-              {errors.password && touched.password ? (
+              {errors.password && touched.password && (
                 <div className="error">{errors.password}</div>
-              ) : null}
+              )}
             </div>
 
             <div>
               <label htmlFor="passwordConfirm">Confirm Password</label>
               <Field name="passwordConfirm" type="password" placeholder="Confirm Password" />
-              {errors.passwordConfirm && touched.passwordConfirm ? (
+              {errors.passwordConfirm && touched.passwordConfirm && (
                 <div className="error">{errors.passwordConfirm}</div>
-              ) : null}
+              )}
             </div>
 
             <div>
@@ -111,10 +111,11 @@ const RegisterForm = function () {
                 <Field name="acceptTerms" type="checkbox" />
                 I accept the terms and conditions
               </label>
-              {errors.acceptTerms && touched.acceptTerms ? (
+              {errors.acceptTerms && touched.acceptTerms && (
                 <div className="error">{errors.acceptTerms}</div>
-              ) : null}
+              )}
             </div>
+
             {!loading ? (
               <div>
                 <button type="submit">Submit</button>

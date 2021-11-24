@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
 
 const Navbar = function () {
+  const { currentUser, handleUserLogout } = useAuth();
   return (
     <header>
       <div className="container">
@@ -23,7 +25,11 @@ const Navbar = function () {
               <a href="#About">About</a>
             </li>
             <li>
-              <a href="#LogIn">Log In</a>
+              {currentUser ? (
+                <button type="button" onClick={handleUserLogout}>Logout</button>
+              ) : (
+                <Link to="login">Log In</Link>
+              )}
             </li>
             <li>
               <Link to="/register">Sign Up</Link>

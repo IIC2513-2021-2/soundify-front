@@ -22,5 +22,13 @@ module.exports = {
     'func-names': 'off',
     'react/prop-types': 'off',
     'react/function-component-definition': 'off',
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+      },
+    ],
   },
 };

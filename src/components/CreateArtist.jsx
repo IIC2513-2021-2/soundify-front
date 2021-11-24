@@ -32,7 +32,7 @@ export default function CreateArtist({ addArtist }) {
       .then((response) => {
         if (!response.ok) {
           setError(true);
-          return {};
+          return response.text().then((message) => Promise.reject(new Error(message)));
         }
         return response.json();
       })

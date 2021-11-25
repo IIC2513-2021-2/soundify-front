@@ -12,10 +12,12 @@ import AlbumList from './views/AlbumList';
 import AlbumNew from './views/AlbumNew';
 import AlbumDetail from './views/AlbumDetail';
 import AlbumEdit from './views/AlbumEdit';
+import { BrowserRouter } from 'react-router-dom';
+import AppRoutes from './AppRoutes';
+
 
 const App = function () {
   return (
-
     <BrowserRouter>
       <AuthContextProvider>
         <Navbar />
@@ -34,8 +36,8 @@ const App = function () {
           </Routes>
         </main>
       </AuthContextProvider>
+      <AppRoutes />
     </BrowserRouter>
-
   );
 };
 

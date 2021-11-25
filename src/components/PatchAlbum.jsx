@@ -69,7 +69,6 @@ export default function PatchAlbum() {
         })}
         onSubmit={async (values) => {
           setLoading(true);
-          console.log(values);
           const formData = new FormData();
           Object.keys(values).forEach((key) => {
             formData.append(key, values[key]);

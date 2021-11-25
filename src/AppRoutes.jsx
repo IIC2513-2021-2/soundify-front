@@ -13,15 +13,16 @@ export default function AppRoutes() {
   return (
     <AuthContextProvider>
       <Navbar />
-      <Routes>
-        <Route index element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="artists" element={<ArtistList />} />
-        <Route path="artists/:id" element={<ArtistDetail />} />
-        <Route path="register" element={<Register />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-
+      <main>
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="artists" element={<ArtistList />} />
+          <Route path="artists/:id" element={<ArtistDetail />} />
+          <Route path="register" element={<Register />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
     </AuthContextProvider>
   );
 }

@@ -45,12 +45,17 @@ const user = {
   token_type: 'Bearer',
 };
 
+const sessionExpiration = new Date(
+  new Date().getTime() + 1000 * 60 * 60 * 24, // One day in the future
+);
+
 const testResponse = {
   data: [artist1, artist2],
 };
 
 const localStorageMapping = {
   user,
+  sessionExpiration,
 };
 
 const server = setupServer(
@@ -70,14 +75,21 @@ describe('ArtistList', () => {
         expect(loadingText).not.toBeInTheDocument();
       });
 
-      const logginMessage = screen.getByText(/Log in to create a new artist/i);
       const linkElement1 = screen.getByText(/Tame Impala/i);
       const linkElement2 = screen.getByText(/Khruangbin/i);
-
-      expect(logginMessage).toBeInTheDocument();
       expect(linkElement1).toBeInTheDocument();
       expect(linkElement2).toBeInTheDocument();
     });
+    it('renders the not login message', async () => {
+      render(<TestRouter path="/artists" />);
+      const loadingText = screen.getByText(/Loading/i);
+      await waitFor(() => {
+        expect(loadingText).not.toBeInTheDocument();
+      });
+
+      const loginMessage = screen.getByText(/Log in to create a new artist/i);
+      expect(loginMessage).toBeInTheDocument();
+    })
   });
 
   describe('when user is logged in', () => {
@@ -96,13 +108,20 @@ describe('ArtistList', () => {
         expect(loadingText).not.toBeInTheDocument();
       });
 
-      const logginMessage = screen.queryByText(/Log in to create a new artist/i);
       const linkElement1 = screen.getByText(/Tame Impala/i);
       const linkElement2 = screen.getByText(/Khruangbin/i);
-
       expect(linkElement1).toBeInTheDocument();
       expect(linkElement2).toBeInTheDocument();
-      expect(logginMessage).not.toBeInTheDocument();
+    });
+    it('does not render the not login message', async () => {
+      render(<TestRouter path="/artists" />);
+      const loadingText = screen.getByText(/Loading/i);
+      await waitFor(() => {
+        expect(loadingText).not.toBeInTheDocument();
+      });
+
+      const loginMessage = screen.queryByText(/Log in to create a new artist/i);
+      expect(loginMessage).not.toBeInTheDocument();
     });
   });
 

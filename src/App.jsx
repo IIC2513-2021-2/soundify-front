@@ -5,9 +5,7 @@ import AppRoutes from './AppRoutes';
 const App = function () {
   return (
     <BrowserRouter>
-      <main>
-        <AppRoutes />
-      </main>
+      <AppRoutes />
     </BrowserRouter>
   );
 };

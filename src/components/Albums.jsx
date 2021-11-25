@@ -25,7 +25,9 @@ const Albums = function () {
     <div>
       <ul className="albums">
         {albums.map((album) => (
-          <SingleAlbum key={album.albumId} album={album} />
+          <li>
+            <SingleAlbum key={album.albumId} album={album} />
+          </li>
         ))}
       </ul>
     </div>

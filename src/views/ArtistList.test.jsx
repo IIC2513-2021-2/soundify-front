@@ -89,7 +89,7 @@ describe('ArtistList', () => {
 
       const loginMessage = screen.getByText(/Log in to create a new artist/i);
       expect(loginMessage).toBeInTheDocument();
-    })
+    });
   });
 
   describe('when user is logged in', () => {

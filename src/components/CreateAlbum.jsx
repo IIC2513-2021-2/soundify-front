@@ -6,7 +6,6 @@ import { Deserializer } from 'jsonapi-serializer';
 import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import { useNavigate } from 'react-router-dom';
-import config from '../config';
 import useAuth from '../hooks/useAuth';
 
 export default function CreateAlbum() {
@@ -19,11 +18,11 @@ export default function CreateAlbum() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`${config.API_URL}/api/artists`)
+    fetch(`${process.env.REACT_APP_API_URL}/api/artists`)
       .then((response) => {
         if (!response.ok) {
           setError(true);
-          return [];
+          response.text().then((msg) => Promise.reject(new Error(msg)));
         }
         return response.json();
       })

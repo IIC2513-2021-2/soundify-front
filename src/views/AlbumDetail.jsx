@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Deserializer } from 'jsonapi-serializer';
-import config from '../config';
 import SingleAlbum from '../components/SingleAlbum';
 
 const AlbumDetail = function () {
@@ -14,7 +13,7 @@ const AlbumDetail = function () {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`${config.API_URL}/api/albums/${id}`)
+    fetch(`${process.env.REACT_APP_API_URL}/api/albums/${id}`)
       .then((response) => {
         if (!response.ok) {
           setError(true);

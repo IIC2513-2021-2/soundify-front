@@ -6,7 +6,6 @@ import { Deserializer } from 'jsonapi-serializer';
 import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import { useNavigate, useParams } from 'react-router-dom';
-import config from '../config';
 import useAuth from '../hooks/useAuth';
 
 export default function PatchAlbum() {
@@ -21,21 +20,21 @@ export default function PatchAlbum() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`${config.API_URL}/api/artists`)
+    fetch(`${process.env.REACT_APP_API_URL}/api/artists`)
       .then((response) => {
         if (!response.ok) {
           setError(true);
-          return [];
+          return response.text().then((msg) => Promise.reject(new Error(msg)));
         }
         return response.json();
       })
       .then((data) => new Deserializer({ keyForAttribute: 'camelCase' }).deserialize(data, (_error, artistList) => setArtists(artistList)))
       .catch(() => setError(true));
-    fetch(`${config.API_URL}/api/albums/${id}`)
+    fetch(`${process.env.REACT_APP_API_URL}/api/albums/${id}`)
       .then((response) => {
         if (!response.ok) {
           setError(true);
-          return [];
+          return response.text().then((msg) => Promise.reject(new Error(msg)));
         }
         return response.json();
       })

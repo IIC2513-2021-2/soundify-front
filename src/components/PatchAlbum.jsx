@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-one-expression-per-line */
-/* eslint-disable max-len */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react';
 import { Deserializer } from 'jsonapi-serializer';
@@ -7,6 +5,7 @@ import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import { useNavigate, useParams } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
+import config from '../config';
 
 export default function PatchAlbum() {
   const { id } = useParams();
@@ -20,25 +19,26 @@ export default function PatchAlbum() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`${process.env.REACT_APP_API_URL}/api/artists`)
-      .then((response) => {
-        if (!response.ok) {
+    const requestPromises = [
+      fetch(`${config.API_URL}/api/artists`),
+      fetch(`${config.API_URL}/api/albums/${id}`),
+    ];
+    Promise.all(requestPromises)
+      .then(([artistsResponse, albumResponse]) => {
+        if (!artistsResponse.ok) {
           setError(true);
-          return response.text().then((msg) => Promise.reject(new Error(msg)));
+          return artistsResponse.text().then((msg) => Promise.reject(new Error(msg)));
         }
-        return response.json();
-      })
-      .then((data) => new Deserializer({ keyForAttribute: 'camelCase' }).deserialize(data, (_error, artistList) => setArtists(artistList)))
-      .catch(() => setError(true));
-    fetch(`${process.env.REACT_APP_API_URL}/api/albums/${id}`)
-      .then((response) => {
-        if (!response.ok) {
+        if (!albumResponse.ok) {
           setError(true);
-          return response.text().then((msg) => Promise.reject(new Error(msg)));
+          return albumResponse.text().then((msg) => Promise.reject(new Error(msg)));
         }
-        return response.json();
+        return Promise.all([artistsResponse.json(), albumResponse.json()]);
       })
-      .then((data) => new Deserializer({ keyForAttribute: 'camelCase' }).deserialize(data, (_error, albumInfo) => setAlbum(albumInfo)))
+      .then(([artistsData, albumData]) => {
+        new Deserializer({ keyForAttribute: 'camelCase' }).deserialize(artistsData, (_error, artistList) => setArtists(artistList));
+        new Deserializer({ keyForAttribute: 'camelCase' }).deserialize(albumData, (_error, albumInfo) => setAlbum(albumInfo));
+      })
       .catch(() => setError(true))
       .finally(() => setLoading(false));
   }, []);
@@ -62,6 +62,8 @@ export default function PatchAlbum() {
         validationSchema={Yup.object({
           name: Yup.string()
             .required('This field is required'),
+          artistId: Yup.number()
+            .required('This field is required'),
           publishedAt: Yup.date()
             .required('This field is required'),
           cover: Yup.string(),
@@ -80,26 +82,32 @@ export default function PatchAlbum() {
             body: formData,
           };
           try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/albums/${id}`, requestOptions);
-            if (response.status !== 201) {
+            const response = await fetch(`${config.API_URL}/api/albums/${id}`, requestOptions);
+            if (response.status !== 200) {
               setError(true);
               const err = await response.text();
               throw new Error(err);
+            } else {
+              navigate(`/albums/${id}`);
             }
           } catch (err) {
             setMessage(err.message);
           } finally {
             setLoading(false);
-            navigate(`/albums/${id}`);
           }
         }}
       >
         {({ errors, touched, setFieldValue }) => (
           <Form>
             <div>
-              <label htmlFor="Artist">Artist:</label>
+              <label htmlFor="artistId">Artist:</label>
               <Field name="artistId" as="select">
-                {artists.map((artist) => <option key={artist.name} value={artist.id}>{artist.name} </option>)}
+                {artists.map((artist) => (
+                  <option key={artist.id} value={artist.id}>
+                    {artist.name}
+                    {' '}
+                  </option>
+                ))}
               </Field>
               {errors.artistId && touched.artistId && (
                 <div>{errors.artistId}</div>
@@ -115,8 +123,8 @@ export default function PatchAlbum() {
             <div>
               <label htmlFor="publishedAt" placeholder={album?.publishedAt}> Published at</label>
               <Field name="publishedAt" type="date" />
-              {errors.email && touched.email && (
-                <div>{errors.email}</div>
+              {errors.publishedAt && touched.publishedAt && (
+                <div>{errors.publishedAt}</div>
               )}
             </div>
             <div>
@@ -131,7 +139,7 @@ export default function PatchAlbum() {
               />
             </div>
             <div>
-              <button type="submit">Patch album</button>
+              <button type="submit">Update album</button>
             </div>
           </Form>
         )}

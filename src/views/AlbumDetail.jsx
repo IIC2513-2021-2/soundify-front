@@ -43,7 +43,7 @@ const AlbumDetail = function () {
         <>
           <SingleAlbum album={album} />
           <div>
-            <button onClick={() => navigate('edit')} type="button" className="button">Update</button>
+            <button onClick={() => navigate('edit')} type="button" className="button">Edit</button>
           </div>
           <div>
             <button onClick={() => navigate(-1)} type="button" className="button">Back</button>

@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-one-expression-per-line */
-/* eslint-disable max-len */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react';
 import { Deserializer } from 'jsonapi-serializer';
@@ -26,7 +24,8 @@ export default function CreateAlbum() {
         }
         return response.json();
       })
-      .then((data) => new Deserializer({ keyForAttribute: 'camelCase' }).deserialize(data, (_error, artistList) => setArtists(artistList)))
+      .then((data) => new Deserializer({ keyForAttribute: 'camelCase' })
+        .deserialize(data, (_error, artistList) => setArtists(artistList)))
       .catch(() => setError(true))
       .finally(() => setLoading(false));
   }, []);
@@ -83,9 +82,14 @@ export default function CreateAlbum() {
         {({ errors, touched }) => (
           <Form>
             <div>
-              <label htmlFor="Artist">Artist:</label>
+              <label htmlFor="artistId">Artist:</label>
               <Field name="artistId" as="select">
-                {artists.map((artist) => <option key={artist.name} value={artist.id}>{artist.name} </option>)}
+                {artists.map((artist) => (
+                  <option key={artist.name} value={artist.id}>
+                    {artist.name}
+                    {' '}
+                  </option>
+                ))}
               </Field>
               {errors.artistId && touched.artistId && (
                 <div>{errors.artistId}</div>
@@ -101,8 +105,8 @@ export default function CreateAlbum() {
             <div>
               <label htmlFor="publishedAt"> Published at</label>
               <Field name="publishedAt" type="date" />
-              {errors.email && touched.email && (
-                <div>{errors.email}</div>
+              {errors.publishedAt && touched.publishedAt && (
+                <div>{errors.publishedAt}</div>
               )}
             </div>
             <div>

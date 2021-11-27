@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
+import config from '../config';
 
 export default function CreateAlbum() {
   const [loading, setLoading] = useState(false);
@@ -16,7 +17,7 @@ export default function CreateAlbum() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`${process.env.REACT_APP_API_URL}/api/artists`)
+    fetch(`${config.API_URL}/api/artists`)
       .then((response) => {
         if (!response.ok) {
           setError(true);
@@ -65,7 +66,7 @@ export default function CreateAlbum() {
             body: JSON.stringify(values),
           };
           try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/albums`, requestOptions);
+            const response = await fetch(`${config.API_URL}/api/albums`, requestOptions);
             if (response.status !== 201) {
               setError(true);
               const err = await response.text();

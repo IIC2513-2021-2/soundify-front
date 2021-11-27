@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Deserializer } from 'jsonapi-serializer';
 import SingleAlbum from '../components/SingleAlbum';
+import config from '../config';
 
 const AlbumDetail = function () {
   const { id } = useParams();
@@ -13,7 +14,7 @@ const AlbumDetail = function () {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`${process.env.REACT_APP_API_URL}/api/albums/${id}`)
+    fetch(`${config.API_URL}/api/albums/${id}`)
       .then((response) => {
         if (!response.ok) {
           setError(true);

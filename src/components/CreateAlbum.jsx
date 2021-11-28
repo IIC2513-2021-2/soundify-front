@@ -86,9 +86,8 @@ export default function CreateAlbum() {
               <label htmlFor="artistId">Artist:</label>
               <Field name="artistId" as="select">
                 {artists.map((artist) => (
-                  <option key={artist.name} value={artist.id}>
+                  <option key={artist.id} value={artist.id}>
                     {artist.name}
-                    {' '}
                   </option>
                 ))}
               </Field>

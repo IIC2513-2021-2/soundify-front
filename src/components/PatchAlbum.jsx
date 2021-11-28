@@ -105,7 +105,6 @@ export default function PatchAlbum() {
                 {artists.map((artist) => (
                   <option key={artist.id} value={artist.id}>
                     {artist.name}
-                    {' '}
                   </option>
                 ))}
               </Field>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import Navbar from './components/Navbar';
 import Home from './views/Home';
 import ArtistList from './views/ArtistList';
 import ArtistDetail from './views/ArtistDetail';
@@ -7,7 +8,10 @@ import NotFound from './views/NotFound';
 import Register from './views/Register';
 import Login from './views/Login';
 import AuthContextProvider from './contexts/AuthContext';
-import Navbar from './components/Navbar';
+import AlbumList from './views/AlbumList';
+import AlbumNew from './views/AlbumNew';
+import AlbumDetail from './views/AlbumDetail';
+import AlbumEdit from './views/AlbumEdit';
 
 export default function AppRoutes() {
   return (
@@ -16,10 +20,14 @@ export default function AppRoutes() {
       <main>
         <Routes>
           <Route index element={<Home />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route path="login" element={<Login />} />
           <Route path="artists" element={<ArtistList />} />
           <Route path="artists/:id" element={<ArtistDetail />} />
-          <Route path="register" element={<Register />} />
+          <Route path="albums" element={<AlbumList />} />
+          <Route path="albums/new" element={<AlbumNew />} />
+          <Route path="albums/:id" element={<AlbumDetail />} />
+          <Route path="albums/:id/edit" element={<AlbumEdit />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

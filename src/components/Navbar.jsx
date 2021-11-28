@@ -19,7 +19,7 @@ const Navbar = function () {
               <Link to="/artists">Artists</Link>
             </li>
             <li>
-              <a href="#Albums">Albums</a>
+              <a href="/albums">Albums</a>
             </li>
             <li>
               <a href="#About">About</a>
